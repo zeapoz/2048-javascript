@@ -4,6 +4,12 @@ let board = new Board();
 let score_text = document.getElementById("score");
 
 document.addEventListener("keydown", function(e) {
+    // Clone grid for comparison
+    let copy = [];
+    for (let i = 0; i < board.grid.length; i++) {
+        copy[i] = board.grid[i].value;
+    }
+    // Move each tile based on input
     switch (e.key) {
         case "ArrowLeft":
             for (let r = 0; r < 4; r++) {
@@ -11,7 +17,7 @@ document.addEventListener("keydown", function(e) {
                     board.moveHorizontally(r, c, 0, -1);
                 }
             }
-            afterMove();
+            afterMove(copy);
             break;
         case "ArrowRight":
             for (let r = 3; r > -1; r--) {
@@ -19,7 +25,7 @@ document.addEventListener("keydown", function(e) {
                     board.moveHorizontally(r, c, 3, 1);
                 }
             }
-            afterMove()
+            afterMove(copy)
             break;
         case "ArrowUp":
             for (let r = 0; r < 4; r++) {
@@ -27,7 +33,7 @@ document.addEventListener("keydown", function(e) {
                     board.moveVertically(r, c, 0, -1);
                 }
             }
-            afterMove()
+            afterMove(copy)
             break;
         case "ArrowDown":
             for (let r = 3; r > -1; r--) {
@@ -35,7 +41,7 @@ document.addEventListener("keydown", function(e) {
                     board.moveVertically(r, c, 3, 1);
                 }
             }
-            afterMove()
+            afterMove(copy)
             break;
         case "r":
             this.location.reload();
@@ -43,8 +49,20 @@ document.addEventListener("keydown", function(e) {
     }
 });
 
-function afterMove() {
-    board.addRandomCell();
-    board.resetMerged();
-    score_text.innerHTML = "Score: " + board.calculateScore();
+function afterMove(copy) {
+    // Check if board has changed
+    if (compareGrids(copy)) {
+        board.addRandomCell();
+        board.resetMerged();
+        score_text.innerHTML = "Score: " + board.calculateScore();
+    }
+}
+
+function compareGrids(copy) {
+    for (let i = 0; i < board.grid.length; i++) {
+        if (board.grid[i].value != copy[i]) {
+            return true;
+        }
+    }
+    return false;
 }

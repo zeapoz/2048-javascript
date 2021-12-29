@@ -66,6 +66,7 @@ export default class Board {
         // Merge same numbered cells
         } else if (!this.grid[other].merged && this.grid[other].value == value) {
             this.grid[other].updateValue(value*2);
+            this.grid[other].merged = true;
             this.grid[index].updateValue(0);
         }
     }

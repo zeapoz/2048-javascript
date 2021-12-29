@@ -62,9 +62,14 @@ footer p, footer a {
     background-color: rgb(125, 125, 125);
 }
 
-#tile-2, #tile-4 {
+#tile-2 {
     color: black;
     background-color: rgb(221, 208, 205);
+}
+
+#tile-4 {
+    color: black;
+    background-color: rgb(221, 189, 182);
 }
 
 #tile-8 {
