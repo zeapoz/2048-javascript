@@ -33,7 +33,7 @@ export default class Board {
 
     moveHorizontally(r, c, edge, offset) {
         if (c == edge) {
-            return
+            return;
         }
         let index = this.calculateIndex(r, c);
         let other = index + offset;
@@ -44,15 +44,16 @@ export default class Board {
             this.grid[index].updateValue(0);
             this.moveHorizontally(r, c + offset, edge, offset);
         // Merge same numbered cells
-        } else if (this.grid[other].value == value) {
+        } else if (!this.grid[other].merged && this.grid[other].value == value) {
             this.grid[other].updateValue(value*2);
+            this.grid[other].merged = true;
             this.grid[index].updateValue(0);
         }
     }
 
     moveVertically(r, c, edge, offset) {
         if (r == edge) {
-            return
+            return;
         }
         let index = this.calculateIndex(r, c);
         let other = index + offset * 4;
@@ -63,9 +64,15 @@ export default class Board {
             this.grid[index].updateValue(0);
             this.moveVertically(r + offset, c, edge, offset);
         // Merge same numbered cells
-        } else if (this.grid[other].value == value) {
+        } else if (!this.grid[other].merged && this.grid[other].value == value) {
             this.grid[other].updateValue(value*2);
             this.grid[index].updateValue(0);
+        }
+    }
+
+    resetMerged() {
+        for (let i = 0; i < this.grid.length; i++) {
+            this.grid[i].merged = false;
         }
     }
 

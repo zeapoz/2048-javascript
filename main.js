@@ -11,8 +11,7 @@ document.addEventListener("keydown", function(e) {
                     board.moveHorizontally(r, c, 0, -1);
                 }
             }
-            board.addRandomCell();
-            score_text.innerHTML = "Score: " + board.calculateScore();
+            afterMove();
             break;
         case "ArrowRight":
             for (let r = 3; r > -1; r--) {
@@ -20,8 +19,7 @@ document.addEventListener("keydown", function(e) {
                     board.moveHorizontally(r, c, 3, 1);
                 }
             }
-            board.addRandomCell();
-            score_text.innerHTML = "Score: " + board.calculateScore();
+            afterMove()
             break;
         case "ArrowUp":
             for (let r = 0; r < 4; r++) {
@@ -29,8 +27,7 @@ document.addEventListener("keydown", function(e) {
                     board.moveVertically(r, c, 0, -1);
                 }
             }
-            board.addRandomCell();
-            score_text.innerHTML = "Score: " + board.calculateScore();
+            afterMove()
             break;
         case "ArrowDown":
             for (let r = 3; r > -1; r--) {
@@ -38,11 +35,16 @@ document.addEventListener("keydown", function(e) {
                     board.moveVertically(r, c, 3, 1);
                 }
             }
-            board.addRandomCell();
-            score_text.innerHTML = "Score: " + board.calculateScore();
+            afterMove()
             break;
         case "r":
             this.location.reload();
             break;
     }
 });
+
+function afterMove() {
+    board.addRandomCell();
+    board.resetMerged();
+    score_text.innerHTML = "Score: " + board.calculateScore();
+}

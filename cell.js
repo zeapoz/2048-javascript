@@ -1,5 +1,6 @@
 export default class Cell {
     value = 0;
+    merged = false;
 
     constructor(x, y, text) {
         this.x = x;
