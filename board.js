@@ -71,6 +71,16 @@ export default class Board {
         }
     }
 
+    isGameOver() {
+        for (let i = 0; i < this.grid.length; i++) {
+            if (this.grid[i].value < 2) {
+                return false;
+            }
+        }
+        // Check if moves can be made
+        return true;
+    }
+
     resetMerged() {
         for (let i = 0; i < this.grid.length; i++) {
             this.grid[i].merged = false;
@@ -94,10 +104,13 @@ export default class Board {
             return;
         }
         let value = 2;
-        if (Math.random() >= 0.8) {
+        if (Math.random() >= 0.9) {
             value = 4;
         }
         this.grid[index].updateValue(value);
+        this.grid[index].text.parentElement.classList.remove("popin");
+        this.grid[index].text.parentElement.offsetWidth;
+        this.grid[index].text.parentElement.classList.add("popin");
     }
 
     calculateIndex(r, c) {

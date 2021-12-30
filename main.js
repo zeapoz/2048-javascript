@@ -43,8 +43,12 @@ document.addEventListener("keydown", function(e) {
             }
             afterMove(copy)
             break;
+        // Debug keys
         case "r":
             this.location.reload();
+            break;
+        case "s":
+            board.addRandomCell();
             break;
     }
 });
@@ -55,6 +59,9 @@ function afterMove(copy) {
         board.addRandomCell();
         board.resetMerged();
         score_text.innerHTML = "Score: " + board.calculateScore();
+        if (board.isGameOver()) {
+            document.getElementById("game-end").style.display = "block";
+        }
     }
 }
 
