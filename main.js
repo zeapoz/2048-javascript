@@ -44,16 +44,16 @@ document.addEventListener("swiped", function(e) {
     }
     // Move each tile based on input
     switch (e.detail.dir) {
-        case "swiped-left":
+        case "left":
             moveLeft(copy);
             break;
-        case "swiped-right":
+        case "right":
             moveRight(copy);
             break;
-        case "swiped-up":
+        case "up":
             moveUp(copy);
             break;
-        case "swiped-down":
+        case "down":
             moveDown(copy);
             break;
     }
