@@ -31,6 +31,14 @@ export default class Board {
         }
     }
 
+    reset() {
+        for (let i = 0; i < this.grid.length; i++) {
+            this.grid[i].updateValue(0);
+        }
+        this.addRandomCell();
+        this.addRandomCell();
+    }
+
     moveHorizontally(r, c, edge, offset) {
         if (c == edge) {
             return;
@@ -77,8 +85,30 @@ export default class Board {
                 return false;
             }
         }
-        // Check if moves can be made
-        return true;
+        console.log(this.canMakeMoves());
+        return !this.canMakeMoves();
+    }
+
+    canMakeMoves() {
+        for (let c = 0; c < 4; c++) {
+            for (let r = 0; r < 4; r++) {
+                let index = this.calculateIndex(r, c);
+                let cellValue = this.grid[index].value;
+                if (c != 0 && this.grid[(index - 1)].value == cellValue) {
+                    return true;
+                }
+                if (c != 3 && this.grid[(index + 1)].value == cellValue) {
+                    return true;
+                }
+                if (r != 0 && this.grid[(index - 4)].value == cellValue) {
+                    return true;
+                }
+                if (r != 3 && this.grid[(index + 4)].value == cellValue) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     resetMerged() {
